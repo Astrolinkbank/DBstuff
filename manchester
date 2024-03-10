@@ -1,0 +1,31 @@
+import pyodbc
+
+# Database connection details
+server_name = 'manchester_server'
+database_name = 'AstrolinkDB'
+username = 'astro_admin'
+password = 'f5o67xLok'
+
+# Connection string
+connection_string = f'DRIVER={{SQL Server}};SERVER={manchester_server};DATABASE={AstrolinkDB};UID={astro_admin};PWD={password}'
+
+try:
+    # Establishing a connection
+    connection = pyodbc.connect(connection_string)
+    cursor = connection.cursor()
+
+    # Example: Execute SQL query
+    cursor.execute('SELECT * FROM example_table')
+    
+    # Fetch and print results
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+except pyodbc.Error as ex:
+    print(f"Error connecting to the database: {ex}")
+
+finally:
+    # Close the connection
+    if connection:
+        connection.close()
